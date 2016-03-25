@@ -1,4 +1,3 @@
-a
 aah
 aahed
 aahing
@@ -6,7 +5,6 @@ aahs
 aardvark
 aardvarks
 aardwolf
-ab
 abaci
 aback
 abacus
@@ -69,7 +67,6 @@ abbots
 abbotship
 abbotships
 abbott
-abbr
 abbrev
 abbreviate
 abbreviated
@@ -79,7 +76,6 @@ abbreviation
 abbreviations
 abbreviator
 abbreviators
-abc
 abdicable
 abdicate
 abdicated
@@ -7520,7 +7516,6 @@ bashfully
 bashfulness
 bashing
 basic
-basic's
 basically
 basicity
 basics
@@ -14979,7 +14974,6 @@ centenary
 centennial
 centennials
 center
-center's
 centerboard
 centerboards
 centered
@@ -21280,7 +21274,6 @@ countrywoman
 countrywomen
 counts
 county
-county's
 coup
 coupe
 couped
@@ -28486,7 +28479,7 @@ dominos
 dominus
 doms
 don
-don't
+dont
 dona
 donald
 donate
@@ -29576,7 +29569,7 @@ dun
 dunce
 dunces
 dundee
-dundee's
+dundees
 dunderhead
 dunderheads
 dunderpate
@@ -41269,7 +41262,6 @@ governess
 governesses
 governing
 government
-government's
 governmental
 governments
 governor
@@ -46539,7 +46531,6 @@ hysterical
 hysterically
 hysterics
 hystericus
-i'm
 iamb
 iambi
 iambic
@@ -46558,9 +46549,6 @@ ibid
 ibidem
 ibis
 ibises
-ibm
-ic
-icbm
 ice
 iceberg
 icebergs
@@ -48468,7 +48456,6 @@ industrious
 industriously
 industriousness
 industry
-industry's
 indwell
 indwelling
 indwells
@@ -60394,7 +60381,6 @@ modality
 modally
 mode
 model
-model's
 modeled
 modeler
 modelers
@@ -60896,7 +60882,6 @@ montevideo
 montezuma
 montgomery
 month
-month's
 monthlies
 monthly
 months
@@ -64294,7 +64279,7 @@ novels
 novelties
 novelty
 november
-november's
+novembers
 novena
 novenae
 novenas
@@ -65012,7 +64997,7 @@ octets
 octette
 octettes
 october
-october's
+octobers
 octogenarian
 octogenarians
 octopi
@@ -65582,7 +65567,6 @@ operatically
 operatics
 operating
 operation
-operation's
 operational
 operationally
 operations
@@ -65886,7 +65870,6 @@ organisms
 organist
 organists
 organization
-organization's
 organizational
 organizationally
 organizations
@@ -91946,7 +91929,6 @@ stat
 statable
 statal
 state
-state's
 stateable
 statecraft
 stated
@@ -93195,7 +93177,6 @@ studiously
 studiousness
 studs
 study
-study's
 studying
 stuff
 stuffed
@@ -97210,6 +97191,7 @@ thereafter
 thereamong
 thereat
 thereby
+thered
 therefor
 therefore
 therefrom
@@ -106837,8 +106819,8 @@ waywardly
 waywardness
 wayworn
 we
-we're
-we've
+were
+weve
 weak
 weaken
 weakened
@@ -109056,7 +109038,6 @@ ye
 yea
 yeah
 year
-year's
 yearbook
 yearbooks
 yearlies
@@ -109233,7 +109214,7 @@ yorker
 yorkers
 yosemite
 you
-you'd
+youd
 young
 younger
 youngers
@@ -109274,8 +109255,6 @@ yowlers
 yowling
 yowls
 yows
-yr
-yrs
 ytterbic
 ytterbium
 yttria
@@ -109307,7 +109286,6 @@ yup
 yuppie
 yurt
 yurts
-ywca
 zabaione
 zabaiones
 zachariah
