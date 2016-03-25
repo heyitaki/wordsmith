@@ -17,7 +17,7 @@ public class Player {
 	static final int BOARD_WIDTH = 4;
 	char[][] board;
 	boolean[][] visited;
-	HashSet<String> foundWords;
+	static HashSet<String> foundWords;
 
 	//alphabet info
 	HashMap<Character, Integer> tileScores;
@@ -37,8 +37,8 @@ public class Player {
 
 	public static void main(String[] args) throws IOException {
 		//modes available: score, safe
-		Player god = new Player("./dict.txt", "", "score");
-		printList(god.solveBoard());
+		Player god = new Player("./dict.txt", "x", "score");
+		System.out.println(god.solveBoard());
 	}
 
 	//TODO: confirm score for j
@@ -66,7 +66,7 @@ public class Player {
 	}
 
 	private void loadBoard(String fileName) {
-		Scanner in = new Scanner(System.in);
+		/*Scanner in = new Scanner(System.in);
 		char nextLetter;
 		board = new char[BOARD_HEIGHT][BOARD_WIDTH];
 		for (int i = 0; i < BOARD_HEIGHT; i++) {
@@ -75,7 +75,13 @@ public class Player {
 				board[i][j] = nextLetter;
 			}
 		}
-		in.close();
+		in.close();*/
+		board = new char[][] {
+			{'c', 's', 'd', 'a'},
+			{'h', 't', 'r', 'c'},
+			{'s', 'a', 's', 'e'},
+			{'r', 'p', 'p', 'k'}
+		};
 	}
 
 	private void enumerateWords () {
@@ -91,21 +97,26 @@ public class Player {
 	}
 
 	private void dfsTraversal(StringBuilder prefix, Coordinate curr) {
-		if(!isValidCoor(curr) || visited[curr.x][curr.y] || dictionary.find(prefix.toString()) == -1) {
+ 		if(visited[curr.x][curr.y]) {
 			return;
 		}
-
-		visited[curr.x][curr.y] = true;	
-		prefix.append(board[curr.x][curr.y]);
+ 		
+ 		prefix.append(board[curr.x][curr.y]);
+ 		visited[curr.x][curr.y] = true;	
 		String pfx = prefix.toString();
-		if(dictionary.find(pfx) == 1) {
+ 		if(dictionary.find(pfx) == -1) {
+ 			prefix.deleteCharAt(prefix.length() - 1);
+ 			visited[curr.x][curr.y] = false;
+ 			return;
+ 		} else if(dictionary.find(pfx) == 1) {
 			foundWords.add(pfx);
 		}
 
 		for(Coordinate next : getNeighbors(curr)) {
 			dfsTraversal(prefix, next);
 		}
-
+		
+		prefix.deleteCharAt(prefix.length() - 1);
 		visited[curr.x][curr.y] = false;
 	}
 
@@ -115,10 +126,9 @@ public class Player {
 		for(int i = -1; i <= 1; i++) {
 			for(int j = -1; j <= 1; j++) {
 				neighbor = new Coordinate(pt.x + i, pt.y + j);
-				neighbors.add(neighbor);
-				/*if(isValidCoor(neighbor) && (i != 0 && j != 0)) {
+				if(isValidCoor(neighbor) && !(i == 0 && j == 0)) {
 					neighbors.add(neighbor);
-				}*/
+				}
 			}
 		}
 		return neighbors;
@@ -167,12 +177,12 @@ public class Player {
 	private class ScoreComparator implements Comparator<String> {
 		@Override
 		public int compare(String s1, String s2) {
-			return getScore(s1) - getScore(s2);
+			return getScore(s2) - getScore(s1);
 		}
 	}
 
 	public static void printList(ArrayList<String> list) {
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < list.size() && i < 100; i++) {
 			System.out.println(list.get(i));
 		}
 	}

@@ -26,9 +26,13 @@ public class WordamentTrie {
             //move to or insert current letter
             if(curr.children.containsKey(letter)) {
                 curr = curr.children.get(letter);
+                if (isFullWord == true) {
+                	curr.isFullWord = isFullWord;
+                }
             } else {
                 child = new Node(letter, isFullWord);
                 curr.children.put(letter, child);
+                curr = curr.children.get(letter);
             }
         }
     }
@@ -46,7 +50,7 @@ public class WordamentTrie {
             }
 
             //check to see if word exists in dict
-            if(i >= input.length() - 1 && curr.isFullWord) {
+            if(i == input.length() - 1 && curr.isFullWord) {
                 return 1;
             }
         }

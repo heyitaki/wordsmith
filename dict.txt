@@ -22428,13 +22428,6 @@ crystallography
 crystalloid
 crystalloidal
 crystals
-cs
-csp
-cst
-ct
-ctg
-ctrl
-cts
 cub
 cuba
 cubage
