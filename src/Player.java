@@ -1,3 +1,5 @@
+import java.awt.AWTException;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -6,7 +8,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Scanner;
+
+import net.sourceforge.tess4j.TesseractException;
 
 public class Player {
 	WordamentTrie dictionary; 
@@ -23,22 +26,35 @@ public class Player {
 	HashMap<Character, Integer> tileScores;
 	static final int ALPHABET_SIZE = 26;
 	static final int MIN_WORD_LENGTH = 3;
+	
+	//window info
+	static final String WINDOW_NAME = "Wordament";
+	static final String CLASS_NAME = "ApplicationFrameWindow";
 
-	public Player (String dictFileName, String boardFileName, String mode) throws IOException {
-		dictionary = new WordamentTrie(readDict(dictFileName));
-		loadBoard(boardFileName);
+	public Player (String dictFileName, char[][] board, String mode) throws IOException {
+		dictionary = new WordamentTrie(readDict(dictFileName));	
+		this.board = board;
 		this.mode = mode;
 		initTileScores();
 		
 		//default value of visited is false
 		visited = new boolean[BOARD_WIDTH][BOARD_HEIGHT];
 		foundWords = new HashSet<String>();
+		CursorController.initCursorPositions();
 	}
 
 	public static void main(String[] args) throws IOException {
 		//modes available: score, safe
-		Player god = new Player("./dict.txt", "x", "score");
-		System.out.println(god.solveBoard());
+		try {
+			BoardConstructor.setDimensions(CLASS_NAME, WINDOW_NAME);
+			//System.out.println(BoardConstructor.getGameState());
+			BufferedImage[] images = BoardConstructor.getTiles();
+			char[][] board = BoardConstructor.getConvertedBoard(images);
+			Player god = new Player("./dict.txt", board, "score");
+			System.out.println(god.solveBoard());
+		} catch (SetWindowPositionError | WindowNotFoundException | AWTException | TesseractException e) {
+			e.printStackTrace();
+		}
 	}
 
 	//TODO: confirm score for j
@@ -64,7 +80,9 @@ public class Player {
 		in.close();
 		return allWords;
 	}
-
+	
+	//testing purposes
+	@SuppressWarnings("unused")
 	private void loadBoard(String fileName) {
 		/*Scanner in = new Scanner(System.in);
 		char nextLetter;
@@ -188,13 +206,6 @@ public class Player {
 	}
 }
 
-class Coordinate {
-	int x;
-	int y;
-	public Coordinate (int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
-}
+
 
 
