@@ -1,5 +1,8 @@
-#WordamentPlayer
-This project is currently in progress. Currently, given a manually inputted nxn board, WordamentPlayer will return a list of accepted words. 
+# WordamentPlayer
+## Summary
+The program moves the Wordament window into a specific location, screenshots each tile, performs OCR, and then solves the board. Processing and solving the board takes about 10 seconds. 
 
-TODO:
-Need to implement board construction and cursor movement.
+## Demo:
+[![WordamentPlayer Demo](https://j.gifs.com/2k2LvA.gif)](https://www.youtube.com/watch?v=qaOtIU-mFYQ)
+
+**Note**: I do not encourage cheating whatsoever; this project was merely an intellectual exercise.
