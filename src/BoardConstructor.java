@@ -143,25 +143,12 @@ public class BoardConstructor {
 		return '.';
 	}
 	
-	public static void main(String[] args) {
-		//courtesy of winspy++
-		String windowName = "Wordament";
-		String className = "ApplicationFrameWindow";
-		try {
-			BoardConstructor.setDimensions(className, windowName);
-			System.out.println(BoardConstructor.getGameState());
-			BufferedImage[] images = BoardConstructor.getTiles();
-			char[][] board = BoardConstructor.getConvertedBoard(images);
-			for(int i = 0; i < board.length; i++) {
-				for(int j = 0; j < board[0].length; j++)
-				{
-					System.out.print(board[i][j]);
-				}
-				System.out.println(" ");
+	public static void printBoard(char[][] board) {
+		for(int i = 0; i < board.length; i++) {
+			for(int j = 0; j < board[0].length; j++) {
+				System.out.print(board[i][j] + " ");
 			}
-		} catch (SetWindowPositionError | WindowNotFoundException | AWTException | TesseractException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(" ");
 		}
 	}
 }

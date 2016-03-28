@@ -20,7 +20,7 @@ public class Player {
 	static final int BOARD_WIDTH = 4;
 	char[][] board;
 	boolean[][] visited;
-	static HashSet<String> foundWords;
+	static HashMap<String, ArrayList<Coordinate>> foundWords;
 
 	//alphabet info
 	HashMap<Character, Integer> tileScores;
@@ -39,20 +39,48 @@ public class Player {
 		
 		//default value of visited is false
 		visited = new boolean[BOARD_WIDTH][BOARD_HEIGHT];
-		foundWords = new HashSet<String>();
+		foundWords = new HashMap<String, ArrayList<Coordinate>>();
 		CursorController.initCursorPositions();
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		//modes available: score, safe
 		try {
 			BoardConstructor.setDimensions(CLASS_NAME, WINDOW_NAME);
-			//System.out.println(BoardConstructor.getGameState());
+				System.out.println(BoardConstructor.getGameState());
 			BufferedImage[] images = BoardConstructor.getTiles();
 			char[][] board = BoardConstructor.getConvertedBoard(images);
+				BoardConstructor.printBoard(board);
+				
 			Player god = new Player("./dict.txt", board, "score");
-			System.out.println(god.solveBoard());
-		} catch (SetWindowPositionError | WindowNotFoundException | AWTException | TesseractException e) {
+			ArrayList<String> sorted = god.solveBoard();
+				System.out.println(sorted);
+				
+			int accepted = 0, count = 0, error = 0;
+			String currWord;
+			while(!BoardConstructor.getGameState().equals("score") && count < sorted.size()) {
+				currWord = sorted.get(count);
+				System.out.print(currWord);
+				int[] swipeRGB = CursorController.swipeWord(currWord);
+				count++;
+				
+				accepted = Player.isAcceptedWord(swipeRGB);
+				if(accepted == 1) {
+					error = 0;
+					System.out.println(" - Accepted!");
+				} else if(accepted == 0) { 
+					System.out.println(" - Already entered");
+				} else {
+					error++;
+					System.out.println(" - Incorrect");
+				}
+				
+				if(error >= 3) {
+					break;
+				}
+				Thread.sleep(250);
+			}
+		} catch (SetWindowPositionError | WindowNotFoundException | AWTException | TesseractException | IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
@@ -105,36 +133,42 @@ public class Player {
 	private void enumerateWords () {
 		StringBuilder prefix;
 		Coordinate start;
+		ArrayList<Coordinate> cursorPath;
 		for (int i = 0; i < BOARD_HEIGHT; i++) {
 			for (int j = 0; j < BOARD_WIDTH; j++) {
 				prefix = new StringBuilder();
 				start = new Coordinate(i, j);
-				dfsTraversal(prefix, start);
+				cursorPath = new ArrayList<Coordinate>();
+				cursorPath.add(CursorController.cursorPositions[j][i]);
+				dfsTraversal(prefix, start, cursorPath);
 			}
 		}
 	}
 
-	private void dfsTraversal(StringBuilder prefix, Coordinate curr) {
+	private void dfsTraversal(StringBuilder prefix, Coordinate curr, ArrayList<Coordinate> cursorPath) {
  		if(visited[curr.x][curr.y]) {
 			return;
 		}
  		
  		prefix.append(board[curr.x][curr.y]);
+ 		cursorPath.add(CursorController.cursorPositions[curr.y][curr.x]);
  		visited[curr.x][curr.y] = true;	
 		String pfx = prefix.toString();
  		if(dictionary.find(pfx) == -1) {
  			prefix.deleteCharAt(prefix.length() - 1);
+ 			cursorPath.remove(cursorPath.size() - 1);
  			visited[curr.x][curr.y] = false;
  			return;
  		} else if(dictionary.find(pfx) == 1) {
-			foundWords.add(pfx);
+			foundWords.put(pfx, new ArrayList<Coordinate>(cursorPath));
 		}
 
 		for(Coordinate next : getNeighbors(curr)) {
-			dfsTraversal(prefix, next);
+			dfsTraversal(prefix, next, cursorPath);
 		}
 		
 		prefix.deleteCharAt(prefix.length() - 1);
+		cursorPath.remove(cursorPath.size() - 1);
 		visited[curr.x][curr.y] = false;
 	}
 
@@ -161,7 +195,7 @@ public class Player {
 
 	public ArrayList<String> solveBoard() {
 		enumerateWords();
-		ArrayList<String> sorted = new ArrayList<String>(foundWords);
+		ArrayList<String> sorted = new ArrayList<String>(foundWords.keySet());
 		
 		//sort by points or shuffle based on mode
 		if (mode.equals("score")) {
@@ -197,6 +231,22 @@ public class Player {
 		public int compare(String s1, String s2) {
 			return getScore(s2) - getScore(s1);
 		}
+	}
+	
+	public static ArrayList<Coordinate> getCursorPath(String input) {
+		return foundWords.get(input);
+	}
+	
+	public static int isAcceptedWord(int[] rgb) {
+        if(rgb[0] == 51 && rgb[1] == 153 && rgb[2] == 51) { 
+        	//accepted word
+        	return 1;
+        } else if(240 < rgb[0] && rgb[0] < 250 && 215 < rgb[1] && rgb[1] < 225 && 90 < rgb[2] && rgb[2] < 100) { 
+        	//word already tried; this should never happen
+        	return 0;
+        }
+        //word incorrect
+        return -1;
 	}
 
 	public static void printList(ArrayList<String> list) {
