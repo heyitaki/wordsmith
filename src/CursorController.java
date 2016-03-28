@@ -26,7 +26,7 @@ public class CursorController {
 		Robot robot = new Robot();
 		
 		double dx, dy, dt;
-		double stepSize = 10;
+		double stepSize = 20;
 		double swipeTime = 100;
 		
 		ArrayList<Coordinate> cursorPath = Player.getCursorPath(input);
