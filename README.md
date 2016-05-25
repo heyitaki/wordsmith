@@ -13,6 +13,7 @@ Click on the demo to see the full video.
 
 ## Next Steps
 * release another demo video showing the console running alongside the WordamentPlayer gameplay
+* whitelist allowed OCR chars to improve conversion speed and accuracy
 * extend usability to MacOS/Linux
 * replace some hardcoded "magic" values with calcs based on user's screen size
 
