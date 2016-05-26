@@ -133,6 +133,7 @@ public class BoardConstructor {
 	public static char getLastAlpha(String input) {
 		for (int i = input.length() - 1; i >= 0; i--) {
 	        char c = input.charAt(i);
+	        //hack to get rid of numbers (from tile score), and misread tiles
 	        if (Character.isLetter(c))
 	            return Character.toLowerCase(c);
 	        else if (c == '0')
