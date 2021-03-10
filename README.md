@@ -3,7 +3,7 @@
 ### Summary
 Wordament is an online word game inspired by Boggle in which players are given 2 minutes to find as many words as they can from a 4x4 board. Tiles cannot be reused, and words must be built from adjacent tiles. WordamentPlayer is a bot designed to play for the highest score possible.
 
-WordamentPlayer moves the Wordament window into a specific location (via JNA), screenshots each tile, performs OCR (via Tesseract/Tess4J), and then solves the board using DFS and a trie-implemented dictionary. Processing and solving the board takes about 10 seconds of calculation time before starting to input words into the game board. 
+Wordsmith moves the Wordament window into a specific location (via JNA), screenshots each tile, performs OCR (via Tesseract/Tess4J), and then solves the board using DFS and a trie-implemented dictionary. Processing and solving the board takes about 10 seconds of calculation time before starting to input words into the game board. 
 
 **Note**: I do not encourage cheating whatsoever; this project was merely an intellectual exercise.
 
