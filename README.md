@@ -1,5 +1,4 @@
 # WORDAMENTPLAYER
-**Update**: A more recent version of this project can be found [here](https://github.com/akshaths/Word-Game-Winner). Please note that the game the program solves (and therefore the magic values that are used) is different.
 
 ### SUMMARY
 Wordament is an online word game inspired by Boggle in which players are given 2 minutes to find as many words as they can from a 4x4 board. Tiles cannot be reused, and words must be built from adjacent tiles. WordamentPlayer is a bot designed to play for the highest score possible.
